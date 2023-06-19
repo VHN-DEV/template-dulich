@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViVuViet - Contact</title>
+    <link rel="stylesheet" type="text/css" href="styles/css/main_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/css/Animation.css">
+    <script type="text/javascript" src="styles/js/jquery-3.4.0.min.js"></script>
+    <script src="styles/js/jquery-ui.js"></script>
+    <link rel='stylesheet' href='styles/css/sweet-alert.css'>
+    <script src='styles/js/sweet-alert.min.js'></script>
+    <link rel="stylesheet" href="styles/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script>
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 35 || document.documentElement.scrollTop > 35) {
+                $(document).ready(function () {
+                    $(".top_bar").hide();
+                });
+
+            } else {
+                $(document).ready(function () {
+                    $(".top_bar").show();
+                });
+            }
+        }
+
+
+    </script>
+    <script language="javascript">
+        function validateForm() {
+            var check_email = /^[A-Za-z0-9_.]{6,32}@([a-zA-Z0-9]{2,12})(.[a-zA-Z]{2,12})+$/;
+            var a = document.getElementById('form_name').value;
+            var b = document.getElementById('form_email').value;
+            var c = document.getElementById('form_subject').value;
+            var d = document.getElementById('form_mess').value;
+
+            if (a == '') {
+                swal('Vui lòng nhập Tên');
+            } else if (!check_email.test(b)) { //so sanh
+                swal('Email không đúng, vui  lòng nhập lại');
+            } else if (c == '') {
+                swal("Vui lòng nhập chủ đề")
+            } else if (d == '') {
+                swal("Vui lòng nhập nội dung")
+            } else {
+                //Lấy all dữ liệu trong form
+                var data = $('form#form_contact').serialize();
+
+                $.ajax({
+                    type: 'POST', //kiểu post
+                    url: 'test.php', //gửi dữ liệu sang trang test.php
+                    data: data,
+                    success: function (data) {
+                        if (data == 'false') {
+                            swal('Gởi thất bại');
+                        } else {
+                            swal("Thành công!", "Nội dung đã được gởi", "success");
+                            $('#contact').html(data);
+                        }
+                    }
+                });
+                // return true;
+            }
+
+            return false;
+        }
+    </script>
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- Header -->
+
+    <!-- main -->
+    <div class="main">
+        <div class="main__slide_offers">
+            <div class="home_slide__item">
+                <div class="home_slide__background"
+                     style="background-image: url(styles/images/offers_slide.jpg)"></div>
+                <div class="home__content">
+                    <div class="home__title animated bounceInDown">
+                        Liên hệ
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        contact-->
+        <div class="contact_form_container">
+            <div class="box contact_form__box">
+                <div class="contact_form__title">Form liên hệ</div>
+                <form action="" id="form_contact" class="contact__form" method="post" name="form_contact"
+                      onsubmit="return validateForm()">
+                    <label>
+                        <input id="form_name" class="contact__form_name input_field" name="name" placeholder="Họ và Tên"
+                               type="text" value="">
+                    </label>
+                    <label>
+                        <input id="form_email" class="contact__form_email input_field" name="email" placeholder="E-mail"
+                               type="text" value="">
+                    </label>
+                    <label>
+                        <input id="form_subject" class="contact__form_subject input_field" name="subject"
+                               placeholder="Chủ đề" type="text">
+                    </label>
+                    <textarea name="mess" id="form_mess" placeholder="Nội dung" rows="4"
+                              class="contact__form_mess input_field"></textarea>
+                    <input type="submit" class="contact__form_button button trans_200" value="Gởi đi">
+                </form>
+            </div>
+        </div>
+
+        <div class="contact__info">
+            <div class="box contact__info_box">
+                <h2>Địa chỉ</h2>
+                <p>- 137 Nguyễn Thị Thập, Hòa Minh, Liên Chiểu,TP.Đà Nẵng -</p>
+            </div>
+        </div>
+        <div class="contact__map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802545904285!2d108.16776031451235!3d16.075732988876922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314218e6e07b1c3f%3A0x459e4bf5a2af323e!2zVHLGsOG7nW5nIGNhbyDEkeG6s25nIHRo4buxYyBow6BuaCBGUFQgUE9MWVRFQ0hOSUMgxJDDoCBO4bq1bmc!5e0!3m2!1svi!2s!4v1555684901135!5m2!1svi!2s"
+                    width="100%" height="auto" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- footer -->
+
+</div>
+</body>
+<script src="styles/js/main_js.js"></script>
+<script>
+    $(function () {
+        $("#tabs").tabs();
+    });
+
+</script>
+
+</html>
